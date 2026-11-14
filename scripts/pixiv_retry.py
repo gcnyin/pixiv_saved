@@ -52,7 +52,10 @@ def load_config(explicit):
                 data = json.load(f)
             break
     cookie = args.cookie or os.environ.get('PIXIV_COOKIE') or data.get('cookie')
-    proxy = args.proxy or os.environ.get('PIXIV_PROXY') or data.get('proxy')
+    if getattr(args, 'no_proxy', False):
+        proxy = None
+    else:
+        proxy = args.proxy or os.environ.get('PIXIV_PROXY') or data.get('proxy') or None
     if not cookie:
         sys.exit('缺少 cookie：请用 --cookie 传入，或设置 PIXIV_COOKIE，或在 config.json 中配置。')
     return {'cookie': cookie, 'proxy': proxy}
@@ -198,7 +201,8 @@ if __name__ == '__main__':
     ap.add_argument('uid', help='pixiv 用户 ID')
     ap.add_argument('--out', default='.', help='输出根目录（默认当前目录）')
     ap.add_argument('--workers', type=int, default=3, help='并发数（默认 3，避免图床限流）')
-    ap.add_argument('--proxy', default=None, help='HTTP 代理')
+    ap.add_argument('--proxy', default=None, help='HTTP 代理（可选），例如 http://127.0.0.1:7890')
+    ap.add_argument('--no-proxy', action='store_true', help='强制直连，忽略 config.json / 环境变量中的代理')
     ap.add_argument('--cookie', default=None, help='pixiv 登录 Cookie')
     ap.add_argument('--config', default=None, help='config.json 路径')
     args = ap.parse_args()

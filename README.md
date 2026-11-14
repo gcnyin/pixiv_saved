@@ -25,7 +25,7 @@ pixiv_saved/
 
 - Python 3.9+
 - 能访问 `www.pixiv.net` 与 `i.pximg.net`
-  - 如果本机直连被墙，请先开代理（脚本支持 `--proxy` / `config.json`）
+  - 代理是**可选**的：直连可用就不需要配置；如果被墙，再用 `--proxy` 或 `config.json` 指定
 - 一个登录状态的 pixiv 会话 Cookie（R-18 作品必须登录才能拿到原图地址）
 
 ## 配置
@@ -41,9 +41,16 @@ cp config.example.json config.json
 ```json
 {
   "cookie": "PHPSESSID=你的PHPSESSID; cf_clearance=可选的CloudflareCookie",
-  "proxy": "http://127.0.0.1:7890"
+  "proxy": ""
 }
 ```
+
+`proxy` 是可选的：
+
+- 直连：留空 `""`，或直接省略 `proxy` 字段；
+- 走代理：填 `"http://127.0.0.1:7890"`；
+- 命令行覆盖：`--proxy http://...`，或 `--no-proxy` 强制直连；
+- 也支持环境变量 `PIXIV_PROXY`。
 
 ### 如何获取 Cookie
 
@@ -65,6 +72,9 @@ python scripts/pixiv_sync.py 104319135
 
 # 指定输出目录 / 代理 / 并发数
 python scripts/pixiv_sync.py 104319135 --out D:\pixiv_saved --proxy http://127.0.0.1:7890 --workers 8
+
+# 强制直连（忽略 config.json / 环境变量里的代理）
+python scripts/pixiv_sync.py 104319135 --no-proxy
 
 # 也可以直接传 cookie，不写 config.json
 python scripts/pixiv_sync.py 104319135 --cookie "PHPSESSID=..."
