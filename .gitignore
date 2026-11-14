@@ -1,0 +1,22 @@
+# 下载产物：每个用户一个文件夹（文件夹名 = pixiv 用户 ID）
+/[0-9]*/
+
+# 运行状态 / 日志 / 清单
+/_state_*.json
+/_state_*.json.tmp
+/_sync_*.log
+/_retry_*.log
+/_manifest.csv
+*.part
+
+# 本地配置（含 cookie，绝不提交）
+/config.json
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS
+.DS_Store
+Thumbs.db
