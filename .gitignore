@@ -17,6 +17,42 @@
 __pycache__/
 *.py[cod]
 
-# OS
+# ---- macOS ----
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100/
+.Trashes/
+.fseventsd/
+.TemporaryItems/
+.DocumentRevisions-V100/
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+__MACOSX/
+.AppleDouble/
+.LSOverride
+.localized
+Icon?
+*.icloud
+
+# ---- Linux ----
+*~
+.directory
+.Trash/
+.Trash-*/
+.nfs*
+.goutputstream-*
+.fuse_hidden*
+.cache/
+.thumbnails/
+core
+core.*
+*.swp
+*.swo
+lost+found/
+
+# ---- Windows ----
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
